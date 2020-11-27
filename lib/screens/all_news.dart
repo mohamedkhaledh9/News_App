@@ -1,30 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:newsapp/constans.dart';
 import 'package:newsapp/models/article.dart';
 import 'package:newsapp/services/fetch_data.dart';
 import 'package:newsapp/widgets/view_news.dart';
 
-class SportsNews extends StatefulWidget {
-  static String id = 'SportsNews';
-
+class AllNews extends StatefulWidget {
   @override
-  _SportsNewsState createState() => _SportsNewsState();
+  _AllNewsState createState() => _AllNewsState();
 }
 
-class _SportsNewsState extends State<SportsNews> {
+class _AllNewsState extends State<AllNews> {
   NewsApi _newsApi = NewsApi();
-  List<Article> _sportsArticles = [];
-  Future<Article> getSportsArticles() async {
-    List<Article> articles = await _newsApi.fetchArticleByCategory(kSports);
+  List<Article> allArticles = [];
+  Future<List<Article>> getArticles() async {
+    List<Article> articles = await _newsApi.fetchArticles();
     setState(() {
-      _sportsArticles = articles;
+      allArticles = articles;
     });
   }
 
   @override
   void initState() {
     super.initState();
-    getSportsArticles();
+    getArticles();
+//
   }
 
   @override
@@ -32,6 +30,6 @@ class _SportsNewsState extends State<SportsNews> {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     return ViewNews(
-        _sportsArticles, "Top Sports News", screenHeight, screenWidth, context);
+        allArticles, "General News", screenHeight, screenWidth, context);
   }
 }

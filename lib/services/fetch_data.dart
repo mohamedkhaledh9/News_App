@@ -1,13 +1,14 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:newsapp/models/article.dart';
 import 'package:newsapp/models/articles.dart';
 
 class NewsApi {
   Future<List<Article>> fetchArticles() async {
-    final String apiKey = '5e5be3b63a1946418566c98d9c208760';
+    final String apiKey = '2b5d2cac2b32484eb69cadbb00f71cb0';
     try {
       http.Response _response = await http.get(
           'https://newsapi.org/v2/top-headlines?country=eg&apiKey=$apiKey');
@@ -27,7 +28,7 @@ class NewsApi {
   }
 
   Future<List<Article>> fetchArticleByCategory(String category) async {
-    final String apiKey = '5e5be3b63a1946418566c98d9c208760';
+    final String apiKey = '2b5d2cac2b32484eb69cadbb00f71cb0';
     try {
       http.Response _response = await http.get(
           'https://newsapi.org/v2/top-headlines?country=eg&category=$category&apiKey=$apiKey');
@@ -44,7 +45,7 @@ class NewsApi {
         debugPrint('status code is ${_response.statusCode}');
       }
     } catch (e) {
-      debugPrint(e);
+      print(e.message);
     }
   }
 }
