@@ -17,10 +17,9 @@ class _BusinessNewsState extends State<BusinessNews> {
   List<Article> _businessArticles = [];
   Future<List<Article>> getBusinessArticles() async {
     List<Article> articles = await _newsApi.fetchArticleByCategory(kBusiness);
-    setState(() {
+    if(mounted)setState(() {
       _businessArticles = articles;
     });
-    print(_businessArticles.toString());
   }
 
   @override
@@ -34,7 +33,10 @@ class _BusinessNewsState extends State<BusinessNews> {
     print(_businessArticles);
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-    return ViewNews(_businessArticles, "Top Business News", screenHeight,
-        screenWidth, context);
+    return ViewNews(
+        appBarTitle: "Top Business News",
+        articles: _businessArticles,
+        screenHieght: screenHeight,
+        screenWidth: screenWidth);
   }
 }

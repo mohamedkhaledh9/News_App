@@ -4,6 +4,8 @@ import 'package:newsapp/screens/science_news.dart';
 import 'package:newsapp/screens/sports_news.dart';
 import 'package:newsapp/screens/technology_news.dart';
 
+import '../constans.dart';
+
 class CategoryPage extends StatefulWidget {
   static String id = "CategoryPage";
 
@@ -20,30 +22,50 @@ class _CategoryPageState extends State<CategoryPage> {
       length: 4,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.indigo,
+          backgroundColor: kMainColor,
           title: Text("All News"),
           centerTitle: true,
           bottom: TabBar(
             tabs: <Widget>[
-              Text(
-                "Business",
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              Column(
+                children: [
+                  Icon(Icons.business),
+                  Text(
+                    "Business",
+                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                  ),
+                ],
               ),
-              Text(
-                "Sports",
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              Column(
+                children: [
+                  Icon(Icons.sports),
+                  Text(
+                    "Sports",
+                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                  ),
+                ],
               ),
-              Text(
-                "Technology",
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              Column(
+                children: [
+                  Icon(Icons.biotech_outlined),
+                  Text(
+                    "Technology",
+                    style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+                  ),
+                ],
               ),
-              Text(
-                "Science",
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              Column(
+                children: [
+                  Icon(Icons.science),
+                  Text(
+                    "Science",
+                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                  ),
+                ],
               ),
             ],
             onTap: (value) {
-              setState(() {
+              if(mounted) setState(() {
                 currentIndex = value;
               });
             },
@@ -53,7 +75,7 @@ class _CategoryPageState extends State<CategoryPage> {
           children: [
             BusinessNews(),
             SportsNews(),
-            TechologyNews(),
+            TechnologyNews(),
             ScienceNews(),
           ],
         ),

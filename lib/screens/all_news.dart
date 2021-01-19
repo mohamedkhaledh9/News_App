@@ -7,29 +7,34 @@ class AllNews extends StatefulWidget {
   @override
   _AllNewsState createState() => _AllNewsState();
 }
-
 class _AllNewsState extends State<AllNews> {
   NewsApi _newsApi = NewsApi();
   List<Article> allArticles = [];
+
   Future<List<Article>> getArticles() async {
     List<Article> articles = await _newsApi.fetchArticles();
-    setState(() {
-      allArticles = articles;
-    });
+    if (mounted)
+      setState(() {
+        allArticles = articles;
+      });
   }
 
   @override
   void initState() {
     super.initState();
     getArticles();
-//
   }
 
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
+
     return ViewNews(
-        allArticles, "General News", screenHeight, screenWidth, context);
+      appBarTitle: "General News",
+      articles: allArticles,
+      screenHieght: screenHeight,
+      screenWidth: screenWidth,
+    );
   }
 }

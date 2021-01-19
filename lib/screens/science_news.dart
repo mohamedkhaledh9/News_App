@@ -16,7 +16,7 @@ class _ScienceNewsState extends State<ScienceNews> {
   List<Article> _scienceArticles = [];
   Future<Article> getScienceArticles() async {
     List<Article> articles = await _newsApi.fetchArticleByCategory(kScience);
-    setState(() {
+    if(mounted)  setState(() {
       _scienceArticles = articles;
     });
   }
@@ -31,7 +31,10 @@ class _ScienceNewsState extends State<ScienceNews> {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-    return ViewNews(_scienceArticles, "Top Science News", screenHeight,
-        screenWidth, context);
+    return ViewNews(
+        appBarTitle: "Top Science News",
+        articles: _scienceArticles,
+        screenHieght: screenHeight,
+        screenWidth: screenWidth);
   }
 }

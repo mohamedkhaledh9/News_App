@@ -4,27 +4,28 @@ import 'package:newsapp/models/article.dart';
 import 'package:newsapp/services/fetch_data.dart';
 import 'package:newsapp/widgets/view_news.dart';
 
-class TechologyNews extends StatefulWidget {
-  static String id = 'SportsNews';
+class TechnologyNews extends StatefulWidget {
+  static String id = 'TechnologyNews';
 
   @override
   _SportsNewsState createState() => _SportsNewsState();
 }
 
-class _SportsNewsState extends State<TechologyNews> {
+class _SportsNewsState extends State<TechnologyNews> {
   NewsApi _newsApi = NewsApi();
-  List<Article> _sportsArticles = [];
-  Future<Article> getSportsArticles() async {
+  List<Article> _technologyArticles = [];
+  Future<List<Article>> getTechnologyArticles() async {
     List<Article> articles = await _newsApi.fetchArticleByCategory(kTechnology);
-    setState(() {
-      _sportsArticles = articles;
+    if(mounted)setState(() {
+      _technologyArticles = articles;
     });
+    return articles;
   }
 
   @override
   void initState() {
     super.initState();
-    getSportsArticles();
+    getTechnologyArticles();
   }
 
   @override
@@ -32,6 +33,9 @@ class _SportsNewsState extends State<TechologyNews> {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     return ViewNews(
-        _sportsArticles, "Top Sports News", screenHeight, screenWidth, context);
+        appBarTitle: "Top Technology News",
+        articles: _technologyArticles,
+        screenHieght: screenHeight,
+        screenWidth: screenWidth);
   }
 }

@@ -16,7 +16,7 @@ class _SportsNewsState extends State<SportsNews> {
   List<Article> _sportsArticles = [];
   Future<Article> getSportsArticles() async {
     List<Article> articles = await _newsApi.fetchArticleByCategory(kSports);
-    setState(() {
+    if(mounted)setState(() {
       _sportsArticles = articles;
     });
   }
@@ -32,6 +32,9 @@ class _SportsNewsState extends State<SportsNews> {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     return ViewNews(
-        _sportsArticles, "Top Sports News", screenHeight, screenWidth, context);
+        appBarTitle: "Top Sports News",
+        articles: _sportsArticles,
+        screenHieght: screenHeight,
+        screenWidth: screenWidth);
   }
 }
